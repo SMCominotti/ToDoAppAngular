@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
-export class TodoComponent {
+export class TodoComponent implements OnInit {
 
+  todoForm !: FormGroup;
+  task: any [] = [];
+  inprogress: any [] = [];
+  done: any [] = [];
+
+  constructor(private fb: FormBuilder) { }
+
+ngOnInit(): void {
+  this.todoForm = this.fb.group({
+    item: ['',Validators.required]
+})
+}
 }
