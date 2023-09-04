@@ -1,10 +1,11 @@
 <div class="container-fluid">
   <div class="row">
-    <div style="background: #d4a8e7; height: 93vh" class="col-md-3">
+    <div style="background: #E8BFFB; height: 93vh" class="col-md-3">
       <div>
         <mat-card class="mt-3">
           <form [formGroup]="todoForm">
-            <mat-form-field appearance="outline" style="width: 100%">
+            <div class="mx-auto" style="width: 90%;">
+            <mat-form-field  class="mt-3" appearance="outline" style="width: 100%">
               <mat-label>Task Name and Due Date</mat-label>
               <input
                 formControlName="item"
@@ -23,7 +24,8 @@
               />
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <div class="text-center">
+            </div>
+            <div class="text-center mb-3">
               <button
                 (click)="addTask()"
                 mat-raised-button
@@ -43,8 +45,7 @@
           <div class="col-md-4">
             <!-- to-do -->
             <div class="example-container">
-              <h2>TO DO</h2>
-
+              <h2 class="section-heading">TO DO</h2>
               <div
                 cdkDropList
                 [cdkDropListData]="task"
@@ -53,12 +54,18 @@
               >
                 <div
                   class="example-box"
-                  *ngFor="let item of task"
+                  *ngFor="let item of task; let i= index"
                   cdkDrag
                   [class.expired]="isDueDateExpired(item)"
                 >
                   {{ item.description }} -
                   {{ item.dueDate | date : "mediumDate" }}
+                  <div class="box">
+                    <button mat-icon-button [class.expired]="isDueDateExpired(item)" color="warn" (click)="deleteTask(i)"><mat-icon>delete_forever</mat-icon>
+                    </button>
+                    <button mat-icon-button [class.expiredbutton]="isDueDateExpired(item)" color="primary" (click)="deleteTask(i)"><mat-icon>edit_note</mat-icon>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -66,7 +73,7 @@
           <div class="col-md-4">
             <!-- inprogress -->
             <div class="example-container">
-              <h2>IN PROGRESS</h2>
+              <h2 class="section-heading">IN PROGRESS</h2>
               <div
                 cdkDropList
                 [cdkDropListData]="inprogress"
@@ -75,12 +82,18 @@
               >
                 <div
                   class="example-box"
-                  *ngFor="let item of inprogress"
+                  *ngFor="let item of inprogress let i= index"
                   cdkDrag
                   [class.expired]="isDueDateExpired(item)"
                 >
                   {{ item.description }} -
                   {{ item.dueDate | date : "mediumDate" }}
+                  <div class="box">
+                    <button mat-icon-button [class.expired]="isDueDateExpired(item)" color="warn" (click)="deleteTask(i)"><mat-icon>delete_forever</mat-icon>
+                    </button>
+                    <button mat-icon-button [class.expiredbutton]="isDueDateExpired(item)" color="primary" (click)="deleteTask(i)"><mat-icon>edit_note</mat-icon>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -88,7 +101,7 @@
           <div class="col-md-4">
             <!-- done -->
             <div class="example-container">
-              <h2>DONE</h2>
+              <h2 class="section-heading">DONE</h2>
               <div
                 cdkDropList
                 [cdkDropListData]="done"
@@ -97,12 +110,16 @@
               >
                 <div
                   class="example-box"
-                  *ngFor="let item of done"
+                  *ngFor="let item of done let i= index"
                   cdkDrag
                   [class.expired]="isDueDateExpired(item)"
                 >
                   {{ item.description }} -
                   {{ item.dueDate | date : "mediumDate" }}
+                  <div class="box">
+                    <button mat-icon-button [class.expired]="isDueDateExpired(item)" color="warn" (click)="deleteTask(i)"><mat-icon>delete_forever</mat-icon>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

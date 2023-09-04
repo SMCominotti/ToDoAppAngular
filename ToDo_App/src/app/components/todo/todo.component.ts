@@ -40,13 +40,21 @@ export class TodoComponent implements OnInit {
     this.todoForm.get('dueDate')!.setValue('');
   }
 
-  isDueDateExpired(task: ITask): boolean {
-    // Con ésto tengo la fecha actual
-    const currentDate = new Date();
+  deleteTask(i:number){
+    this.task.splice(i, 1);
+  }
 
-    // Compara la fecha de vencimiento con la fecha actual
+
+
+  isDueDateExpired(task: ITask): boolean {
+    if (!task.dueDate) {
+      return false; // Si no hay fecha, no se marca como vencida
+    }
+
+    const currentDate = new Date();// Con ésto tengo la fecha actual
     return task.dueDate < currentDate;
   }
+
 
   drop(event: CdkDragDrop<ITask[]>) {
     if (event.previousContainer === event.container) {

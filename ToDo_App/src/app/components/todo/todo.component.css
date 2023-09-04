@@ -57,7 +57,17 @@
 }
 
 .expired {
-  background-color: red;
+  background-color: rgba(244, 62, 62, 0.562);
   color: white;
   font-weight: bold;
+}
+
+.expiredbutton {
+  color:black;
+}
+
+.section-heading {
+  margin-top: 20px;
+  color: #3E045A ;
+  text-align: center;
 }
