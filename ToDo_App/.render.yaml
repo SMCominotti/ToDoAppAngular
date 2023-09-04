@@ -1,6 +1,6 @@
-buildCommand: npm run build
-startCommand: npm run start
+buildCommand: ng build
+startCommand: ng serve
 
 runtime:
   name: nodejs
-  version: 16.13
+  version: 18.16.1
