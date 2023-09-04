@@ -19,6 +19,7 @@ export class TodoComponent implements OnInit {
   done: ITask[] = [];
   updateIndex!: any;
   isEditEnabled: boolean = false;
+  isExpired: ITask[] = [];
 
   constructor(private fb: FormBuilder) {}
 
@@ -27,6 +28,93 @@ export class TodoComponent implements OnInit {
       item: ['', Validators.required],
       dueDate: [''],
     });
+
+    // Cargar las tareas y las fechas almacenadas en el Local Storage
+    this.loadTasksFromLocalStorage();
+    this.loadDatesFromLocalStorage();
+
+    // Verificar si las fechas de vencimiento están vencidas para todas las tareas
+    this.task.forEach((task) => {
+      task.isExpired = this.isDueDateExpired(task);
+    });
+
+    this.inprogress.forEach((task) => {
+      task.isExpired = this.isDueDateExpired(task);
+    });
+
+    this.done.forEach((task) => {
+      task.isExpired = this.isDueDateExpired(task);
+    });
+
+    this.loadInprogressFromLocalStorage();
+    this.loadDoneFromLocalStorage();
+    this.loadIsExpiredFromLocalStorage();
+  }
+
+
+  private saveTasksToLocalStorage() {
+    localStorage.setItem('tasks', JSON.stringify(this.task));
+  }
+
+  private loadTasksFromLocalStorage() {
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      this.task = JSON.parse(storedTasks);
+
+      this.task.forEach((task) => {
+        task.isExpired = this.isDueDateExpired(task);
+      });
+    }
+  }
+
+  private saveDatesToLocalStorage() {
+    localStorage.setItem(
+      'dueDates',
+      JSON.stringify(this.task.map((t) => t.dueDate))
+    );
+  }
+
+  private loadDatesFromLocalStorage() {
+    const storedDates = localStorage.getItem('dueDates');
+    if (storedDates) {
+      const dueDates = JSON.parse(storedDates);
+      this.task.forEach((task, index) => {
+        task.dueDate = dueDates[index];
+      });
+    }
+  }
+
+  private saveInprogressToLocalStorage() {
+    localStorage.setItem('inprogress', JSON.stringify(this.inprogress));
+  }
+
+  private loadInprogressFromLocalStorage() {
+    const storedInprogress = localStorage.getItem('inprogress');
+    if (storedInprogress) {
+      this.inprogress = JSON.parse(storedInprogress);
+    }
+  }
+
+  private saveDoneToLocalStorage() {
+    localStorage.setItem('done', JSON.stringify(this.done));
+  }
+
+  private loadDoneFromLocalStorage() {
+    const storedDone = localStorage.getItem('done');
+    if (storedDone) {
+      this.done = JSON.parse(storedDone);
+    }
+  }
+
+  private saveIsExpiredToLocalStorage() {
+    localStorage.setItem('isExpired', JSON.stringify(this.isExpired));
+  }
+
+  private loadIsExpiredFromLocalStorage() {
+    const storedIsExpired = localStorage.getItem('isExpired');
+    if (storedIsExpired) {
+      this.isExpired = JSON.parse(storedIsExpired);
+    }
   }
 
   addTask() {
@@ -37,7 +125,30 @@ export class TodoComponent implements OnInit {
       description: taskName,
       dueDate: dueDate,
       done: false,
+      isExpired: this.isDueDateExpired({
+        description: taskName,
+        dueDate: dueDate,
+        done: false,
+        isExpired: false,
+      }),
     });
+
+    this.task.forEach((task) => {
+      task.isExpired = this.isDueDateExpired(task);
+    });
+
+    this.inprogress.forEach((task) => {
+      task.isExpired = this.isDueDateExpired(task);
+    });
+
+    this.done.forEach((task) => {
+      task.isExpired = this.isDueDateExpired(task);
+    });
+
+    this.saveTasksToLocalStorage();
+    this.saveDatesToLocalStorage();
+    this.saveIsExpiredToLocalStorage();
+
     this.todoForm.reset();
   }
 
@@ -55,6 +166,10 @@ export class TodoComponent implements OnInit {
       this.task[this.updateIndex].dueDate = updatedDueDate;
     }
 
+    this.saveTasksToLocalStorage();
+    this.saveDatesToLocalStorage();
+    this.saveIsExpiredToLocalStorage();
+
     this.todoForm.reset();
     this.updateIndex = undefined;
     this.isEditEnabled = false;
@@ -64,7 +179,7 @@ export class TodoComponent implements OnInit {
     this.todoForm.controls['item'].setValue(item.description);
 
     if (item.dueDate) {
-      // Si existe una fecha, La muestra en el formulario
+      // Si existe una fecha, la muestra en el formulario
       this.todoForm.controls['dueDate'].setValue(item.dueDate);
     } else {
       this.todoForm.controls['dueDate'].setValue('');
@@ -76,14 +191,28 @@ export class TodoComponent implements OnInit {
 
   deleteTask(i: number) {
     this.task.splice(i, 1);
+
+    this.saveTasksToLocalStorage();
+    this.saveDatesToLocalStorage();
+    this.saveIsExpiredToLocalStorage();
   }
 
   deleteInprogressTask(i: number) {
     this.inprogress.splice(i, 1);
+
+    this.saveInprogressToLocalStorage();
+    this.saveTasksToLocalStorage();
+    this.saveDatesToLocalStorage();
+    this.saveIsExpiredToLocalStorage();
   }
 
   deleteDoneTask(i: number) {
     this.done.splice(i, 1);
+
+    this.saveDoneToLocalStorage();
+    this.saveTasksToLocalStorage();
+    this.saveDatesToLocalStorage();
+    this.saveIsExpiredToLocalStorage();
   }
 
   isDueDateExpired(task: ITask): boolean {
@@ -91,8 +220,15 @@ export class TodoComponent implements OnInit {
       return false; // Si no hay fecha, no se marca como vencida
     }
 
-    const currentDate = new Date(); // Con ésto tengo la fecha actual
-    return task.dueDate < currentDate;
+    const currentDate = new Date();
+    const isExpired = task.dueDate < currentDate;
+
+    if (isExpired !== task.isExpired) {
+      task.isExpired = isExpired; // Actualizar el estado de la tarea
+      this.saveTasksToLocalStorage();
+    }
+
+    return isExpired;
   }
 
   drop(event: CdkDragDrop<ITask[]>) {
@@ -110,5 +246,15 @@ export class TodoComponent implements OnInit {
         event.currentIndex
       );
     }
+
+    // Guarda las tareas y las fechas en el Local Storage después de la operación de arrastrar y soltar
+    this.saveTasksToLocalStorage();
+    this.saveDatesToLocalStorage();
+    this.saveIsExpiredToLocalStorage();
+
+    // También guarda las tareas en progreso y completadas
+    this.saveInprogressToLocalStorage();
+    this.saveDoneToLocalStorage();
+    this.saveIsExpiredToLocalStorage();
   }
 }
