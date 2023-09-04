@@ -1,5 +1,5 @@
-:host .mat-form-field{
-  width:100%
+:host .mat-form-field {
+  width: 100%;
 }
 .example-container {
   width: 400px;
@@ -36,8 +36,7 @@
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-              0 8px 10px 1px rgba(0, 0, 0, 0.14),
-              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
@@ -63,11 +62,11 @@
 }
 
 .expiredbutton {
-  color:black;
+  color: black;
 }
 
 .section-heading {
   margin-top: 20px;
-  color: #3E045A ;
+  color: #3e045a;
   text-align: center;
 }
