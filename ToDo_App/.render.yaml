@@ -1,6 +1,0 @@
-buildCommand: npm run build
-startCommand: npm run start
-
-runtime:
-  name: nodejs
-  version: 18.16.1
