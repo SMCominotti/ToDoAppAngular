@@ -1,5 +1,5 @@
-buildCommand: ng build
-startCommand: ng serve
+buildCommand: npm run build
+startCommand: npm run start
 
 runtime:
   name: nodejs
