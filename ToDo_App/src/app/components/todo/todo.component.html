@@ -61,7 +61,11 @@
           <div class="col-md-4">
             <!-- to-do -->
             <div class="example-container">
-              <h2 class="section-heading">TO DO</h2>
+              <h2 class="section-heading">TO DO:
+                <span>
+                  {{task.length}}
+                </span>
+              </h2>
               <div
                 cdkDropList
                 [cdkDropListData]="task"
@@ -101,7 +105,11 @@
           <div class="col-md-4">
             <!-- inprogress -->
             <div class="example-container">
-              <h2 class="section-heading">IN PROGRESS</h2>
+              <h2 class="section-heading">IN PROGRESS:
+                <span>
+                  {{inprogress.length}}
+                </span>
+              </h2>
               <div
                 cdkDropList
                 [cdkDropListData]="inprogress"
@@ -133,7 +141,11 @@
           <div class="col-md-4">
             <!-- done -->
             <div class="example-container">
-              <h2 class="section-heading">DONE</h2>
+              <h2 class="section-heading">DONE:
+                <span>
+                  {{done.length}}
+                </span>
+              </h2>
               <div
                 cdkDropList
                 [cdkDropListData]="done"
@@ -157,6 +169,12 @@
                     >
                       <mat-icon>delete_forever</mat-icon>
                     </button>
+                    <button
+                    mat-icon-button
+                    [class.expiredbutton]="isDueDateExpired(item)"
+                    >
+                    <mat-icon class="mat-icon-green">check_circle</mat-icon>
+                  </button>
                   </div>
                 </div>
               </div>
