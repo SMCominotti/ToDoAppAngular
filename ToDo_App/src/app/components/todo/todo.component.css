@@ -87,3 +87,11 @@
 .mat-icon-green {
   color: green;
 }
+
+.mat-input-element {
+  white-space: normal !important;
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-word; /* Agregar esta línea para romper palabras largas */
+  text-overflow: ellipsis; /* Puede agregar "..." al final del texto si es muy largo */
+}
