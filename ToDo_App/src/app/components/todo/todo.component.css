@@ -30,6 +30,19 @@
   cursor: move;
   background: white;
   font-size: 14px;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.example-box .text-container {
+  max-width: 70%;
+}
+
+.example-box .box {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
 }
 
 .cdk-drag-preview {

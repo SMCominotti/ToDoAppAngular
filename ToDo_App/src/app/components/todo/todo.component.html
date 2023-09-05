@@ -61,10 +61,9 @@
           <div class="col-md-4">
             <!-- to-do -->
             <div class="example-container">
-              <h2 class="section-heading">
-                TO DO:
+              <h2 class="section-heading">TO DO:
                 <span>
-                  {{ task.length }}
+                  {{task.length}}
                 </span>
               </h2>
               <div
@@ -79,8 +78,8 @@
                   cdkDrag
                   [class.expired]="isDueDateExpired(item)"
                 >
-                  {{ item.description }} -
-                  {{ item.dueDate | date : "mediumDate" }}
+                  {{ item.description }} (
+                  {{ item.dueDate | date : "mediumDate" }})
                   <div class="box">
                     <button
                       mat-icon-button
@@ -88,7 +87,7 @@
                       color="warn"
                       (click)="deleteTask(i)"
                     >
-                      <mat-icon>delete_forever</mat-icon>
+                    <mat-icon>delete_forever</mat-icon>
                     </button>
                     <button
                       mat-icon-button
@@ -106,10 +105,9 @@
           <div class="col-md-4">
             <!-- inprogress -->
             <div class="example-container">
-              <h2 class="section-heading">
-                IN PROGRESS:
+              <h2 class="section-heading">IN PROGRESS:
                 <span>
-                  {{ inprogress.length }}
+                  {{inprogress.length}}
                 </span>
               </h2>
               <div
@@ -123,9 +121,10 @@
                   *ngFor="let item of inprogress; let i = index"
                   cdkDrag
                   [class.expired]="isDueDateExpired(item)"
-                >
-                  {{ item.description }} -
-                  {{ item.dueDate | date : "mediumDate" }}
+                ><div class="text-container">
+                  {{ item.description }} ({{ item.dueDate | date : "mediumDate" }})
+                </div>
+
                   <div class="box">
                     <button
                       mat-icon-button
@@ -135,6 +134,12 @@
                     >
                       <mat-icon>delete_forever</mat-icon>
                     </button>
+                    <button mat-icon-button
+                    [class.expired]="isDueDateExpired(item)"
+                    color="primary"
+                    disabled>
+                    <mat-icon>manage_accounts</mat-icon>
+                  </button>
                   </div>
                 </div>
               </div>
@@ -143,10 +148,9 @@
           <div class="col-md-4">
             <!-- done -->
             <div class="example-container">
-              <h2 class="section-heading">
-                DONE:
+              <h2 class="section-heading">DONE:
                 <span>
-                  {{ done.length }}
+                  {{done.length}}
                 </span>
               </h2>
               <div
@@ -161,8 +165,8 @@
                   cdkDrag
                   [class.expired]="isDueDateExpired(item)"
                 >
-                  {{ item.description }} -
-                  {{ item.dueDate | date : "mediumDate" }}
+                  {{ item.description }} (
+                  {{ item.dueDate | date : "mediumDate" }})
                   <div class="box">
                     <button
                       mat-icon-button
@@ -173,11 +177,12 @@
                       <mat-icon>delete_forever</mat-icon>
                     </button>
                     <button
-                      mat-icon-button
-                      [class.expiredbutton]="isDueDateExpired(item)"
+                    mat-icon-button
+                    [class.expiredbutton]="isDueDateExpired(item)"
+                    disabled
                     >
-                      <mat-icon class="mat-icon-green">check_circle</mat-icon>
-                    </button>
+                    <mat-icon class="mat-icon-green">check_circle</mat-icon>
+                  </button>
                   </div>
                 </div>
               </div>
