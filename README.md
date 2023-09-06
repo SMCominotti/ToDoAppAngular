@@ -1,6 +1,6 @@
 # ToDoAppAngular
 
-The project is situation in the folder [ToDo_App]
+The project is situation in the folder `ToDo_App`
 In the first time, you need had Node installed. In my case, I have the version 18.16.1
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) with `npm i -g @angular/cli`, In this moment, the version is 16.2.1.
 
