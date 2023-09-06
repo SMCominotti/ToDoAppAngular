@@ -5,7 +5,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { ITask } from '../../model/task';
+import { ITask } from '../model/task';
 
 @Component({
   selector: 'app-todo',
