@@ -69,9 +69,8 @@
 }
 
 .expired {
-  background-color: rgba(244, 62, 62, 0.562);
+  background-color: rgba(144, 8, 162, 0.397);
   color: white;
-  font-weight: bold;
 }
 
 .expiredbutton {
@@ -85,7 +84,7 @@
 }
 
 .mat-icon-green {
-  color: green;
+  color: white;
 }
 
 .mat-input-element {
