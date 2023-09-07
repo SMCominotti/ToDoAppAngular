@@ -18,7 +18,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
-
 @NgModule({
   declarations: [AppComponent, NavbarComponent, TodoComponent],
   imports: [

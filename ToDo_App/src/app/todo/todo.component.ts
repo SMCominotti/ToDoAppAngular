@@ -51,7 +51,6 @@ export class TodoComponent implements OnInit {
     this.loadIsExpiredFromLocalStorage();
   }
 
-
   private saveTasksToLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(this.task));
   }
@@ -220,22 +219,16 @@ export class TodoComponent implements OnInit {
     }
 
     const currentDate = new Date();
-    console.log('Current Date:', currentDate);
-    console.log('Due Date:', new Date(task.dueDate)); // Convertir task.dueDate a Date
 
     const isExpired = new Date(task.dueDate) <= currentDate;
 
-    console.log('Is Expired:', isExpired);
-
     if (isExpired !== task.isExpired) {
-      task.isExpired = isExpired; // Actualizar el estado de la tarea
+      task.isExpired = isExpired;
       this.saveTasksToLocalStorage();
     }
 
     return isExpired;
   }
-
-
 
   drop(event: CdkDragDrop<ITask[]>) {
     if (event.previousContainer === event.container) {

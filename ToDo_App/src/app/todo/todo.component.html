@@ -63,9 +63,10 @@
           <div class="col-md-4">
             <!-- to-do -->
             <div class="example-container">
-              <h2 class="section-heading">TO DO:
+              <h2 class="section-heading">
+                TO DO:
                 <span>
-                  {{task.length}}
+                  {{ task.length }}
                 </span>
               </h2>
               <div
@@ -89,7 +90,7 @@
                       color="warn"
                       (click)="deleteTask(i)"
                     >
-                    <mat-icon>delete_forever</mat-icon>
+                      <mat-icon>delete_forever</mat-icon>
                     </button>
                     <button
                       mat-icon-button
@@ -107,9 +108,10 @@
           <div class="col-md-4">
             <!-- inprogress -->
             <div class="example-container">
-              <h2 class="section-heading">IN PROGRESS:
+              <h2 class="section-heading">
+                IN PROGRESS:
                 <span>
-                  {{inprogress.length}}
+                  {{ inprogress.length }}
                 </span>
               </h2>
               <div
@@ -123,9 +125,12 @@
                   *ngFor="let item of inprogress; let i = index"
                   cdkDrag
                   [class.expired]="isDueDateExpired(item)"
-                ><div class="text-container">
-                  {{ item.description }} ({{ item.dueDate | date : "mediumDate" }})
-                </div>
+                >
+                  <div class="text-container">
+                    {{ item.description }} ({{
+                      item.dueDate | date : "mediumDate"
+                    }})
+                  </div>
 
                   <div class="box">
                     <button
@@ -136,12 +141,14 @@
                     >
                       <mat-icon>delete_forever</mat-icon>
                     </button>
-                    <button mat-icon-button
-                    [class.expired]="isDueDateExpired(item)"
-                    color="primary"
-                    disabled>
-                    <mat-icon>manage_accounts</mat-icon>
-                  </button>
+                    <button
+                      mat-icon-button
+                      [class.expired]="isDueDateExpired(item)"
+                      color="primary"
+                      disabled
+                    >
+                      <mat-icon>manage_accounts</mat-icon>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -150,9 +157,10 @@
           <div class="col-md-4">
             <!-- done -->
             <div class="example-container">
-              <h2 class="section-heading">DONE:
+              <h2 class="section-heading">
+                DONE:
                 <span>
-                  {{done.length}}
+                  {{ done.length }}
                 </span>
               </h2>
               <div
@@ -179,12 +187,12 @@
                       <mat-icon>delete_forever</mat-icon>
                     </button>
                     <button
-                    mat-icon-button
-                    [class.expiredbutton]="isDueDateExpired(item)"
-                    disabled
+                      mat-icon-button
+                      [class.expiredbutton]="isDueDateExpired(item)"
+                      disabled
                     >
-                    <mat-icon class="mat-icon-green">check_circle</mat-icon>
-                  </button>
+                      <mat-icon class="mat-icon-green">check_circle</mat-icon>
+                    </button>
                   </div>
                 </div>
               </div>
