@@ -28,6 +28,8 @@ export class TodoComponent implements OnInit {
       item: ['', Validators.required],
       dueDate: [''],
     });
+    //hago esto para que recargue solo a media noche y asi se actualice el vencimiento
+    this.reloadPageAtMidnight();
 
     // Cargar las tareas y las fechas almacenadas en el Local Storage
     this.loadTasksFromLocalStorage();
@@ -213,6 +215,18 @@ export class TodoComponent implements OnInit {
     this.saveDatesToLocalStorage();
     this.saveIsExpiredToLocalStorage();
   }
+
+  reloadPageAtMidnight() {
+    const now = new Date();
+    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    // Establece la hora a medianoche
+    const timeUntilMidnight = midnight.getTime() - now.getTime();
+
+    setTimeout(() => {
+      window.location.reload();
+    }, timeUntilMidnight);
+  }
+
   isDueDateExpired(task: ITask): boolean {
     if (!task.dueDate) {
       return false; // Si no hay fecha, no se marca como vencida
